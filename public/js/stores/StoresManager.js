@@ -1,30 +1,60 @@
 "use strict";
 
-var StoresManager = function() {
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 
-	var _stores = [];
+class StoresManager {
+	constructor() {
+		this._stores = {};
+		this._order = [];
+	}
 
-	this.add = function(store) {
-		if (store) {
-			_stores.push(store);
+	add(store) {
+		console.log(store.name);
+		if (!!store) {
+			if (!(store in this._stores)) {
+				this._stores[store.name] = store;
+				this._order.push(store.name);
+			}
 		}
 
-		return this;
-	};
+		// we need to handle all the previous stores
+		store.dispatchToken = AppDispatcher.register(function(action){
+			if(action.actionType !== store.name){
+				AppDispatcher.waitFor(this._order.map(s => {
+					return s.dispatchToken;
+				}).splice(this._order.length - 1, 1));
+			} else {
+				store.dispatch(action);
+			}
 
-	this.remove = function(store){
-		var index = _stores.indexOf(store);
+			store.emitChange();
+		});
+	}
 
-		if(index > -1){
-			_stores.splice(index, 1);
+	remove(store) {
+		var index = this._order.indexOf(store.name);
+
+		if (index > -1) {
+			this._stores.splice(index, 1);
 		}
-	};
 
-	this.allStores = function(){
-		console.log(_stores);
-	};
+		if(store.name in this._stores){
+			delete this._stores[store.name];
+		}
+	}
 
+	get allStores() {
+		return this._order;
+	}
 
-};
+	getStoreState(name) {
+		return this._stores[name].state;
+	}
+
+	printAllStores() {
+		console.log(this._stores);
+	}
+
+}
 
 module.exports = StoresManager;

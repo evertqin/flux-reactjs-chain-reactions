@@ -20,7 +20,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    "public/build/js/app-bundle.js": ["public/js/app.jsx"]
+                    "public/build/js/app-bundle.js": ["public/js/App.jsx"]
                 }
             }
 
@@ -51,6 +51,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('build', ['browserify', 'sass']);
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
