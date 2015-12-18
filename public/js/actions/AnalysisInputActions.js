@@ -1,5 +1,5 @@
 ﻿var AppDispatcher = require('../dispatcher/AppDispatcher.js');
-var AnalysisInputConstants = require('../constants/common.js');
+var AnalysisInputConstants = require('../constants/constants.js');
 
 var ActionTypes = AnalysisInputConstants.ActionsTypes;
 

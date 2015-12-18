@@ -1,4 +1,4 @@
-﻿var $ = require('jQuery');
+﻿var $ = require('jquery');
 
 
 
@@ -16,9 +16,9 @@ function AjaxHash() {
         if (!hash.hasOwnProperty(info)) {
             hash[info] = true;
             return info;
-        } 
+        }
         return function() {
-            
+
         }
     }
 
@@ -53,7 +53,7 @@ module.exports = {
                     url: url,
                     data: data,
                     contentType: "application/json; charset=utf-8",
-                    dataType: "json",
+                    //dataType: "json",
                     success: function(ret, status) {
                         if (that.isMounted()) {
                             if (!!ret) {
@@ -68,11 +68,11 @@ module.exports = {
                         hash.finish(url, data);
                     }
                 });
-            //} 
+            //}
         });
 
         return promise;
 
     },
-    
+
 };

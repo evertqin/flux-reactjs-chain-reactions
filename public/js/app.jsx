@@ -6,4 +6,3 @@ var AnalysisInputApp = require('./components/AnalysisInputApp.jsx')
 ReactDOM.render(
     <AnalysisInputApp />, document.getElementById("analysisinput")
 );
-

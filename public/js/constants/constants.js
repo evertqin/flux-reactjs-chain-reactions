@@ -1,13 +1,13 @@
 ﻿var keyMirror = require('keymirror');
 
 var commonConstants = {
-    CubeType: {
-        Universal: 0,
-        SmartCube: 1,
-        PhenoCube: 2,
-        NeuroCube: 3,
-        ChemicalStructure: 6
-    },
+        methodTypes :  {
+          Type0: 0,
+          Type1: 1,
+          Type2: 2,
+          Type3: 3
+
+      },
     ActionsTypes: keyMirror({
         CHANGE_METHODTYPE: null,
         CHANGE_FILES: null,

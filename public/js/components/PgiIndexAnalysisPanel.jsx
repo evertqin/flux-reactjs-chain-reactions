@@ -1,11 +1,11 @@
 ﻿var React = require('react');
 var ReactDOM = require('react-dom');
-var $ = require('jQuery');
-var commonConstants = require('../Constants/common.js');
+var $ = require('jquery');
+var commonConstants = require('../constants/constants.js');
 var UserControls = require('./PgiIndexAnalysisUserControls.jsx');
 var AnalysisMethodTypeInput = require('./AnalysisMethodTypeInput.jsx');
 var AnalysisFilenameInput = require('./AnalysisFilenameInput.jsx');
-var AnalysisFirstFeatureInput = require('./AnalysisFirstFeatureInput.jsx');
+var AnalysisDemoListInput = require('./AnalysisDemoListInput.jsx');
 
 var AnalysisStores = require('../stores/AnalysisStores');
 var utils = require('../utils/AjaxUtils.js');
@@ -62,14 +62,14 @@ var HeaderFieldsToGroupBy = React.createClass({
 
         var fullFeatureList = nextProps.feature.list || this.props.feature.list;
         var selectedFeature = nextProps.feature.selected || this.props.feature.selected;
-        
+
         var headerFieldsList = fullFeatureList.slice(fullFeatureList.indexOf(selectedFeature) + 1);
         return this.handleChange({ list: headerFieldsList , selected:[]});
     },
 
     render: function () {
         return (
-            <UserControls.AnalysisMultipleSelection 
+            <UserControls.AnalysisMultipleSelection
                 dataSource={this.props.featuresForAnalysis.list}
                 selectChange={this.handleChange}
                 selected={this.props.featuresForAnalysis.selected}/>
@@ -82,7 +82,7 @@ var AnalysisPanel = React.createClass({
     getInitialState: function () {
         return {
             methodType: {
-                list: Object.keys(commonConstants.CubeType),
+                list: Object.keys(commonConstants.methodTypes),
                 selected: 'Universal',
             },
             files: {
@@ -112,9 +112,9 @@ var AnalysisPanel = React.createClass({
             <AnalysisMethodTypeInput />
 
             <AnalysisFilenameInput methodType={AnalysisStores.AnalysisMethodStores.getMethodType()}/>
-            <AnalysisFirstFeatureInput methodType={AnalysisStores.AnalysisMethodStores.getMethodType()} files={AnalysisStores.AnalysisFilesStores.getFiles()}
+            <AnalysisDemoListInput methodType={AnalysisStores.AnalysisMethodStores.getMethodType()} files={AnalysisStores.AnalysisFilesStores.getFiles()}
                                />
-            <HeaderFieldsToGroupBy feature={this.state.feature} 
+            <HeaderFieldsToGroupBy feature={this.state.feature}
                                    featuresForAnalysis={this.state.featuresForAnalysis}
                                    selectChange={this.handleSelectChange}/>
             </div>

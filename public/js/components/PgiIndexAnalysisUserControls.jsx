@@ -1,6 +1,6 @@
 ﻿var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var commonConstants = require('../Constants/common.js');
+var commonConstants = require('../constants/constants.js');
 
 var UserControls = {
     AnalysisMultipleSelection: React.createClass({

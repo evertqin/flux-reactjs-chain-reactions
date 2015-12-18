@@ -1,6 +1,6 @@
 ﻿var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var commonConstants = require('../Constants/common.js');
+var commonConstants = require('../constants/constants.js');
 var UserControls = require('./PgiIndexAnalysisUserControls.jsx');
 var AnalysisInputActions = require('../actions/AnalysisInputActions.js');
 var AnalysisStores = require('../stores/AnalysisStores');
@@ -15,7 +15,7 @@ function getStateFromStores() {
     }
 }
 
-var AnalysisFirstFeatureInput = React.createClass({
+var AnalysisDemoListInput = React.createClass({
     propTypes: {
         methodType: ReactPropTypes.object.isRequired,
         files: ReactPropTypes.object.isRequired,
@@ -24,10 +24,10 @@ var AnalysisFirstFeatureInput = React.createClass({
 
     getDefaultProps: function () {
         return {
-            url: "/Analysis/FirstFeatureList",
+            url: "/Analysis/DemoList",
             methodType: {
-                methodTypeList: Object.keys(commonConstants.CubeType),
-                selected: commonConstants.CubeType[0]
+                methodTypeList: Object.keys(commonConstants.methodTypes),
+                selected: commonConstants.methodTypes[0]
             },
             files: {
                 list: [],
@@ -42,11 +42,15 @@ var AnalysisFirstFeatureInput = React.createClass({
 
     componentDidMount: function () {
         AnalysisStores.AnalysisMethodStores.addChangeListener(this._onMethodTypeChange);
+        AnalysisStores.AnalysisFilesStores.addChangeListener(this._onFilesChange);
+
 
     },
 
     componentWillUnmount: function() {
         AnalysisStore.AnalysisMethodStores.removeChangeListener(this._onMethodTypeChange);
+        AnalysisStores.AnalysisFilesStores.removeChangeListener(this._onFilesChange);
+
 
     },
 
@@ -59,12 +63,11 @@ var AnalysisFirstFeatureInput = React.createClass({
 
     _onChange: function(newFeatureValue) {
         AnalysisInputActions.changeFirstFeature(newFeatureValue);
-        console.log(newFeatureValue);
         this.setState(getStateFromStores());
     },
 
     _onMethodTypeChange: function() {
-        ajaxGet.call(this, '/api/AnalysisInput/FilesForProcessing',
+        ajaxGet.call(this, '/Analysis/FilesForProcessing',
         {
             methodType: AnalysisStores.AnalysisMethodStores.getMethodType().selected
         }).then(function(files) {
@@ -81,7 +84,7 @@ var AnalysisFirstFeatureInput = React.createClass({
           })
           .then(this._onChange);
     },
-    
+
 });
 
-module.exports = AnalysisFirstFeatureInput;
+module.exports = AnalysisDemoListInput;

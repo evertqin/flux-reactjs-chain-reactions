@@ -1,40 +1,17 @@
 ﻿var AppDispatcher = require('../dispatcher/AppDispatcher.js');
 var EventEmitter = require('events').EventEmitter;
-var AnalysisInputConstants = require('../constants/common.js');
+var AnalysisInputConstants = require('../constants/constants.js');
 var assign = require('object-assign');
 Object.is = Object.is ? Object.is : require('object-is');
 
 var ActionsTypes = AnalysisInputConstants.ActionsTypes;
 var EventTypes = AnalysisInputConstants.EventTypes;
-//const CHANGE_EVENT = "change";
-//const CHANGE_METHOD = "change_method";
-//const CHANGE_FILES = "change_files";
-
-//var _analysisInput = {
-//    methodType: {
-//        list: Object.keys(AnalysisInputConstants.CubeType),
-//        selected: 'Universal'
-//    },
-//    files: {
-//        list: [],
-//        selected: ""
-//    },
-//    feature: {
-//        list: [],
-//        selected: ""
-//    },
-//    featuresForAnalysis: {
-//        list: [],
-//        selected: []
-//    }
-//};
-
 
 /**
- * 
- * @param {string} tag names, can be methodType, files, feature, featuresForAnalysis, ... 
+ *
+ * @param {string} tag names, can be methodType, files, feature, featuresForAnalysis, ...
  * @param {object} object containing updated object, can be a partial object
- * @returns {} 
+ * @returns {}
  */
 function _update(value) {
     for (let tag in value) {
@@ -49,13 +26,13 @@ var AnalysisStores = {
         type: "methodType",
 
         methodType: {
-            list: Object.keys(AnalysisInputConstants.CubeType),
+            list: Object.keys(AnalysisInputConstants.methodTypes),
             selected: 'Universal'
         },
 
         /**
          * Get MethodType including all supported methodTypes and currently selected methodType
-         * @returns {} 
+         * @returns {}
          */
         getMethodType: function() {
             return this.methodType;
@@ -69,7 +46,7 @@ var AnalysisStores = {
             this.emit(EventTypes.CHANGE_METHOD);
         },
         /**
-         * @param {function} callback 
+         * @param {function} callback
          */
         addChangeListener: function (callback) {
             this.on(EventTypes.CHANGE_METHOD, callback);
@@ -97,7 +74,7 @@ var AnalysisStores = {
             this.emit(EventTypes.CHANGE_FILES);
         },
         /**
-         * @param {function} callback 
+         * @param {function} callback
          */
         addChangeListener: function (callback) {
             this.on(EventTypes.CHANGE_FILES, callback);
@@ -126,7 +103,7 @@ var AnalysisStores = {
             this.emit(EventTypes.ChANGE_FIRSTFEATURE);
         },
         /**
-         * @param {function} callback 
+         * @param {function} callback
          */
         addChangeListener: function (callback) {
             this.on(EventTypes.CHANGE_FIRSTFEATURE, callback);
