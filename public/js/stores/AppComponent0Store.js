@@ -5,6 +5,10 @@ var Store = require('./Store');
 class AppComponent0Store extends Store {
 	constructor(name) {
 		super(name);
+		this.state = {
+			list: ['Universal'],
+            selected: 'Universal'
+		};
 	}
 
 	dispatch(action) {

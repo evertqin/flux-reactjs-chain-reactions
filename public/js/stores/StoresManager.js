@@ -1,6 +1,7 @@
 "use strict";
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AppComponent0Store = require('../stores/AppComponent0Store');
 
 class StoresManager {
 	constructor() {
@@ -9,7 +10,6 @@ class StoresManager {
 	}
 
 	add(store) {
-		console.log(store.name);
 		if (!!store) {
 			if (!(store in this._stores)) {
 				this._stores[store.name] = store;
@@ -18,17 +18,18 @@ class StoresManager {
 		}
 
 		// we need to handle all the previous stores
-		store.dispatchToken = AppDispatcher.register(function(action){
-			if(action.actionType !== store.name){
+		store.dispatchToken = AppDispatcher.register(function(payload){
+			if(payload.actionType !== store.name){
 				AppDispatcher.waitFor(this._order.map(s => {
 					return s.dispatchToken;
 				}).splice(this._order.length - 1, 1));
 			} else {
-				store.dispatch(action);
+				store.dispatch(payload);
 			}
 
 			store.emitChange();
 		});
+		console.log(store.dispatchToken);
 	}
 
 	remove(store) {
@@ -57,4 +58,7 @@ class StoresManager {
 
 }
 
-module.exports = StoresManager;
+var stMgr = new StoresManager();
+stMgr.add(new AppComponent0Store('AppComponent0'));
+
+module.exports = stMgr;

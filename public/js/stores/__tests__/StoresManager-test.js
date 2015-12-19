@@ -1,10 +1,6 @@
 'use strict';
 
-jest.dontMock('../../constants/constants');
-jest.dontMock('../StoresManager');
-jest.dontMock('../AppComponent0Store');
-jest.dontMock('../Store');
-jest.dontMock('../../dispatcher/AppDispatcher');
+jest.autoMockOff();
 
 describe('StoresManager', function() {
 	var StoresManager = require('../StoresManager.js');
@@ -16,7 +12,7 @@ describe('StoresManager', function() {
 	});
 
 	it('Checks adding store to the store manager', function() {
-		const STORE_NAME = "TestStore";
+		const STORE_NAME = 'AppComponent0';
 		var storesManager = new StoresManager();
 		var demoStore = new AppComponent0Store(STORE_NAME);
 		storesManager.add(demoStore);

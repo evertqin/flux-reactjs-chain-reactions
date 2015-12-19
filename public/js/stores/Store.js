@@ -5,12 +5,9 @@ var EventEmitter = require('events').EventEmitter;
 class Store extends EventEmitter {
 	constructor(name) {
 		super();
-		// if(new.target === Store){
-		// 	throw new TypeError("Cannot construct Abstract instances directly");
-		// }
 
 		if (!name) {
-			throw new TypeError("You must provide the name of the store");
+			throw new TypeError('You must provide the name of the store');
 		}
 
 		this.name = name ? name : 'Store';
@@ -19,22 +16,6 @@ class Store extends EventEmitter {
 		};
 		this.dispatchToken = {};
 	}
-
-	// set state(value){
-	// 	this.state = value;
-	// }
-
-	// get state(){
-	// 	return this.state;
-	// }
-
-	// get name(){
-	// 	return this.name;
-	// }
-
-	// set name(name){
-	// 	this.name = name;
-	// }
 
 	update(value){
 		for(let tag in value){
