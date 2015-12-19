@@ -1,7 +1,6 @@
 "use strict";
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var AppComponent0Store = require('../stores/AppComponent0Store');
 
 class StoresManager {
 	constructor() {
@@ -18,8 +17,8 @@ class StoresManager {
 		}
 
 		// we need to handle all the previous stores
-		store.dispatchToken = AppDispatcher.register(function(payload){
-			if(payload.actionType !== store.name){
+		store.dispatchToken = AppDispatcher.register(function(payload) {
+			if (payload.actionType !== store.name) {
 				AppDispatcher.waitFor(this._order.map(s => {
 					return s.dispatchToken;
 				}).splice(this._order.length - 1, 1));
@@ -29,7 +28,6 @@ class StoresManager {
 
 			store.emitChange();
 		});
-		console.log(store.dispatchToken);
 	}
 
 	remove(store) {
@@ -39,7 +37,7 @@ class StoresManager {
 			this._stores.splice(index, 1);
 		}
 
-		if(store.name in this._stores){
+		if (store.name in this._stores) {
 			delete this._stores[store.name];
 		}
 	}
@@ -56,9 +54,18 @@ class StoresManager {
 		console.log(this._stores);
 	}
 
+	static init() {
+		var storesManager = new StoresManager();
+		var storesConfig = require('./storesConfig');
+
+		for(var i = 0; i < storesConfig.length; ++i){
+			var store = new storesConfig[i].class(storesConfig[i].name);
+			storesManager.add(store);
+		}
+		return storesManager;
+
+	}
+
 }
 
-var stMgr = new StoresManager();
-stMgr.add(new AppComponent0Store('AppComponent0'));
-
-module.exports = stMgr;
+module.exports = StoresManager.init();

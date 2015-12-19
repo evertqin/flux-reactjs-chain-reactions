@@ -1,6 +1,6 @@
 ﻿var keyMirror = require('keymirror');
 
-var commonConstants = {
+var constants = {
         methodTypes :  {
           Type0: 0,
           Type1: 1,
@@ -17,8 +17,8 @@ var commonConstants = {
         CHANGE_METHOD: "change_method",
         CHANGE_FILES: "change_files",
         CHANGE_FIRSTFEATURE: "change_firstfeature"
-    }
+    },
 };
 
 
-module.exports = commonConstants;
+module.exports = constants;
