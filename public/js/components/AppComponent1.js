@@ -1,26 +1,26 @@
+'use strict';
+
 var React = require('react');
 var StoresManager = require('../stores/StoresManager');
 var Actions = require('../actions/Actions');
-var ActionTypes = require('../actions/ActionTypes');
 var UserControls = require('./UserControls.jsx');
 var utils = require('../utils/AjaxUtils');
 
 var ajaxGet = utils.ajaxGet;
 
-
-var AppComponent0 = React.createClass({
+var AppComponent1 = React.createClass({
 	propTypes: {
 		url: React.PropTypes.string.isRequired
 	},
 
 	getDefaultProps: function() {
 		return {
-			url: "/Analysis/MethodTypes"
+			url: '/Analysis/MethodTypes'
 		};
 	},
 
 	getInitialState: function() {
-		return StoresManager.getStoreState('AppComponent0');
+		return StoresManager.getStoreState('AppComponent1');
 	},
 
 	componentDidMount: function() {
@@ -33,16 +33,17 @@ var AppComponent0 = React.createClass({
 	},
 
 	_onChange: function(value) {
-		Actions.excute('AppComponent0', value);
-		this.setState(StoresManager.getStoreState('AppComponent0'));
+		Actions.excute('AppComponent1', value);
+		this.setState(StoresManager.getStoreState('AppComponent1'));
 	},
 
 	render: function() {
-		return ( 
-			<UserControls.AnalysisDropDown dataSource = {this.state.list} selected = {this.state.selected}
-			selectChange = {this._onChange} />);
+		return React.createElement(UserControls.AnalysisDropDown, {
+			dataSource: this.state.list,
+			selected: this.state.selected,
+			selectChange: this._onChange
+		});
 	}
 });
 
-
-module.exports = AppComponent0;
+module.exports = AppComponent1;

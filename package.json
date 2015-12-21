@@ -43,7 +43,7 @@
     "rootDir": "",
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "testFileExtensions": ["es6", "js"],
-    "moduleFileExtensions": ["js", "json", "es6"],
+    "moduleFileExtensions": ["jsx","js", "json", "es6"],
      "testPathDirs": [
       "<rootDir>/public/js"
     ],

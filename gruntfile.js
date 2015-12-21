@@ -20,7 +20,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    "public/build/js/app-bundle.js": ["public/js/app.jsx"]
+                    "public/build/js/app-bundle.js": ["public/js/App.jsx"]
                 }
             }
 
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 
         watch: {
             js: {
-                files: ["public/js/**/*.jsx", "public/js/**/*.js", "!public/build/**/*"],
+                files: ["public/js/**/*.jsx", "public/js/**/*.js", "!public/build/**/*", "!public/js/**/__tests__/*"],
                 tasks: ["browserify"]
             },
             css: {

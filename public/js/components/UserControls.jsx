@@ -1,6 +1,7 @@
-﻿var React = require('react');
+﻿'use strict';
+
+var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var commonConstants = require('../constants/constants.js');
 
 var UserControls = {
     AnalysisMultipleSelection: React.createClass({
@@ -39,6 +40,7 @@ var UserControls = {
 
             );
             }.bind(this));
+
 
             return (
                 <div id="feature-select" value={this.props.selected} onChange={this.handleSelect}>
