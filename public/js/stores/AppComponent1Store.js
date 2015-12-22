@@ -1,5 +1,6 @@
 'use strict';
-
+// this is a demo store file, in most of the cases
+// we can just use the default store
 var Store = require('./Store');
 
 class AppComponent1Store extends Store {

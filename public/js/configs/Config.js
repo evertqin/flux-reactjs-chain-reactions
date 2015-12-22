@@ -1,10 +1,10 @@
 'use strict';
 var Config = [{
 	name: 'AppComponent0',
-	class: require('../stores/AppComponent0Store'),
+	class: require('../stores/Store'),
 }, {
 	name: 'AppComponent1',
-	class: require('../stores/AppComponent1Store'),
+	class: require('../stores/Store'),
 } ];
 
 module.exports = Config;

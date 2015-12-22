@@ -12,7 +12,8 @@ class Store extends EventEmitter {
 
 		this.name = name ? name : 'Store';
 		this.state = {
-			error: 'You must set the state first before using it'
+			list: ['Universal'],
+            selected: 'Universal'
 		};
 		this.dispatchToken = {};
 	}
@@ -23,6 +24,13 @@ class Store extends EventEmitter {
 			if(value.hasOwnProperty(tag)){
 				this.state[tag] = value[tag];
 			}
+		}
+	}
+
+	dispatch(action) {
+		console.log("Dispatching \"" + this.name + "\"." );
+		if(!Object.is(action.value, this.state)) {
+			this.update(action.value);
 		}
 	}
 
