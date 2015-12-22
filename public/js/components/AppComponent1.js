@@ -10,32 +10,47 @@ var ajaxGet = utils.ajaxGet;
 
 var AppComponent1 = React.createClass({
 	propTypes: {
-		url: React.PropTypes.string.isRequired
-	},
+		name: React.PropTypes.string.isRequired,
+        methodType: React.PropTypes.string.isRequired,
+        url: React.PropTypes.string.isRequired
+    },
 
-	getDefaultProps: function() {
-		return {
-			url: '/Analysis/MethodTypes'
-		};
-	},
+	getDefaultProps: function () {
+        return {
+        	name : 'AppComponent1', // change this
+        	methodType: 'Universal',
+            url: '/Analysis/FilesForProcessing',
+        };
+    },
 
 	getInitialState: function() {
-		return StoresManager.getStoreState('AppComponent1');
+		return StoresManager.getStoreState(this.props.name);
 	},
 
 	componentDidMount: function() {
-		ajaxGet.call(this, this.props.url, {}).then(this._onChange);
-
+		//Here should attach event listener to upstream store
+		StoresManager.addListener('AppComponent0', this._onMethodTypeChange);
+		ajaxGet.call(this, this.props.url,
+          {
+              methodType: this.props.methodType
+          }).then(this._onChange);
 	},
 
 	componentWillUnmount: function() {
-		// AnalysisInputStores.removeChangeListener(this._onChange);
+		StoresManager.removeListener('AppComponent0', this._onMethodTypeChange);
 	},
 
 	_onChange: function(value) {
-		Actions.excute('AppComponent1', value);
-		this.setState(StoresManager.getStoreState('AppComponent1'));
+		Actions.excute(this.props.name, value);
+		this.setState(StoresManager.getStoreState(this.props.name));
 	},
+
+	_onMethodTypeChange: function () {
+        ajaxGet.call(this, this.props.url,
+          {
+              methodType: StoresManager.getStoreState("AppComponent0").selected
+          }).then(this._onChange);
+    },
 
 	render: function() {
 		return React.createElement(UserControls.AnalysisDropDown, {

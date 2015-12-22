@@ -10,17 +10,19 @@ var ajaxGet = utils.ajaxGet;
 
 var AppComponent0 = React.createClass({
 	propTypes: {
+		name: React.PropTypes.string.isRequired,
 		url: React.PropTypes.string.isRequired
 	},
 
 	getDefaultProps: function() {
 		return {
+			name : 'AppComponent0', // change this
 			url: '/Analysis/MethodTypes'
 		};
 	},
 
 	getInitialState: function() {
-		return StoresManager.getStoreState('AppComponent0');
+		return StoresManager.getStoreState(this.props.name);
 	},
 
 	componentDidMount: function() {
@@ -33,8 +35,8 @@ var AppComponent0 = React.createClass({
 	},
 
 	_onChange: function(value) {
-		Actions.excute('AppComponent0', value);
-		this.setState(StoresManager.getStoreState('AppComponent0'));
+		Actions.excute(this.props.name, value);
+		this.setState(StoresManager.getStoreState(this.props.name));
 	},
 
 	render: function() {

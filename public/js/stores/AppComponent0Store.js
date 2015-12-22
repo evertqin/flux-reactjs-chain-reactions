@@ -1,6 +1,9 @@
 'use strict';
 
 var Store = require('./Store');
+var utils = require('../utils/AjaxUtils');
+
+var ajaxGet = utils.ajaxGet;
 
 class AppComponent0Store extends Store {
 	constructor(name) {
@@ -11,8 +14,10 @@ class AppComponent0Store extends Store {
 		};
 	}
 
+
 	dispatch(action) {
-		if(!Object.is(action.value, super.state)) {
+		console.log("Dispatching \"" + this.name + "\"." );
+		if(!Object.is(action.value, this.state)) {
 			super.update(action.value);
 		}
 	}

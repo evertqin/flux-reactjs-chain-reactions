@@ -19,15 +19,26 @@ class StoresManager {
 
 		// we need to handle all the previous stores
 		store.dispatchToken = AppDispatcher.register(function(payload) {
-			if (payload.actionType !== store.name) {
-				var pre = this._order.slice(0, this._order.indexOf(payload.actionType));
-				AppDispatcher.waitFor(pre.map(s => {
-					return s.dispatchToken;
-				}).splice(this._order.length - 1, 1));
-			} else {
-				store.dispatch(payload);
+			var index = -1;
+			for(var i = 0; i < this._order.length; ++i){
+				if(this._order[i].name === payload.actionType){
+					index = i;
+					break;
+				}
 			}
 
+			var storeIndex = this._order.indexOf(store);
+
+			if(index > storeIndex){
+				// higher hirachy actions will not cause any change in the lower 
+				// hirachy stores
+				return;
+			}
+
+			var pre = this._order.slice(0, index);
+
+			AppDispatcher.waitFor(pre.map(s=>{return s.dispatchToken;}));
+			store.dispatch(payload);	
 			store.emitChange();
 		}.bind(this));
 	}
@@ -50,6 +61,22 @@ class StoresManager {
 
 	getStoreState(name) {
 		return this._stores[name].state;
+	}
+
+	addListener(name, callback) {
+		var store = this._stores[name];
+
+		if(store){
+			store.addChangeListener(callback);
+		}
+	}
+
+	removeListener(name, callback){
+		var store = this._stores[name];
+
+		if(store){
+			store.removeChangeListener(callback);
+		}
 	}
 
 	printAllStores() {

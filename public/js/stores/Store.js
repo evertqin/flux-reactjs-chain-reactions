@@ -18,6 +18,7 @@ class Store extends EventEmitter {
 	}
 
 	update(value){
+		console.log("Updating " + value);
 		for(let tag in value){
 			if(value.hasOwnProperty(tag)){
 				this.state[tag] = value[tag];
@@ -26,6 +27,7 @@ class Store extends EventEmitter {
 	}
 
 	emitChange() {
+		console.log("Emitting " + this.name);
 		super.emit(this.name);
 	}
 

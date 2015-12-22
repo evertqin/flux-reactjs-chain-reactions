@@ -12,8 +12,9 @@ class AppComponent1Store extends Store {
 	}
 
 	dispatch(action) {
-		if(!Object.is(action.value, super.state)) {
-			super.update(action.value);
+		console.log("Dispatching \"" + this.name + "\"." );
+		if(!Object.is(action.value, this.state)) {
+			this.update(action.value);
 		}
 	}
 }
