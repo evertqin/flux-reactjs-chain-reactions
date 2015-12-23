@@ -15,19 +15,19 @@ class AppComponent1 extends BaseComponent {
 		this.state = StoresManager.getStoreState(props.name);
 		// we need to manually bind this to custom methods
 		//https://github.com/goatslacker/alt/issues/283
-		this._onMethodTypeChange = this._onMethodTypeChange.bind(this);
+		this._onRootChange = this._onRootChange.bind(this);
 	}
 
 	componentDidMount() {
 		//Here should attach event listener to upstream store
-		StoresManager.addListener(BaseComponent.name, this._onMethodTypeChange);
+		StoresManager.addListener(BaseComponent.name, this._onRootChange);
 	}
 
 	componentWillUnmount() {
-		StoresManager.removeListener(BaseComponent.name, this._onMethodTypeChange);
+		StoresManager.removeListener(BaseComponent.name, this._onRootChange);
 	}
 
-	_onMethodTypeChange() {
+	_onRootChange() {
 		ajaxGet.call(this, this.props.url, {
 			root: StoresManager.getStoreState(BaseComponent.name).selected
 		}).then(this._onChange);
@@ -74,14 +74,14 @@ AppComponent1.defaultProps = {
 
 // 	componentDidMount: function() {
 // 		//Here should attach event listener to upstream store
-// 		StoresManager.addListener('AppComponent0', this._onMethodTypeChange);
+// 		StoresManager.addListener('AppComponent0', this._onRootChange);
 // 		ajaxGet.call(this, this.props.url, {
 // 			methodType: this.props.methodType
 // 		}).then(this._onChange);
 // 	},
 
 // 	componentWillUnmount: function() {
-// 		StoresManager.removeListener('AppComponent0', this._onMethodTypeChange);
+// 		StoresManager.removeListener('AppComponent0', this._onRootChange);
 // 	},
 
 // 	_onChange: function(value) {
@@ -89,7 +89,7 @@ AppComponent1.defaultProps = {
 // 		this.setState(StoresManager.getStoreState(this.props.name));
 // 	},
 
-// 	_onMethodTypeChange: function() {
+// 	_onRootChange: function() {
 // 		ajaxGet.call(this, this.props.url, {
 // 			methodType: StoresManager.getStoreState("AppComponent0").selected
 // 		}).then(this._onChange);

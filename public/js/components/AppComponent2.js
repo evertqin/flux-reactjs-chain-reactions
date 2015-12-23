@@ -21,12 +21,10 @@ class AppComponent2 extends BaseComponent {
 	componentDidMount() {
 		//Here should attach event listener to upstream store
 		StoresManager.addListener(BaseComponent.name, this._onFilesChange);
-
 	}
 
 	componentWillUnmount() {
 		StoresManager.removeListener(BaseComponent.name, this._onFilesChange);
-
 	}
 
 	_onFilesChange() {
