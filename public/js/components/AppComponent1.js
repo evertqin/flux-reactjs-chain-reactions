@@ -4,7 +4,7 @@ var React = require('react');
 var StoresManager = require('../stores/StoresManager');
 var Actions = require('../actions/Actions');
 var UserControls = require('./UserControls.jsx');
-var BaseComponent = require('./BaseComponent');
+var BaseComponent = require('./AppComponent0');
 var utils = require('../utils/AjaxUtils');
 
 var ajaxGet = utils.ajaxGet;
@@ -20,16 +20,16 @@ class AppComponent1 extends BaseComponent {
 
 	componentDidMount() {
 		//Here should attach event listener to upstream store
-		StoresManager.addListener('AppComponent0', this._onMethodTypeChange);
+		StoresManager.addListener(BaseComponent.name, this._onMethodTypeChange);
 	}
 
 	componentWillUnmount() {
-		StoresManager.removeListener('AppComponent0', this._onMethodTypeChange);
+		StoresManager.removeListener(BaseComponent.name, this._onMethodTypeChange);
 	}
 
 	_onMethodTypeChange() {
 		ajaxGet.call(this, this.props.url, {
-			methodType: StoresManager.getStoreState("AppComponent0").selected
+			root: StoresManager.getStoreState(BaseComponent.name).selected
 		}).then(this._onChange);
 	}
 
@@ -44,14 +44,14 @@ class AppComponent1 extends BaseComponent {
 
 AppComponent1.propTypes = {
 	name: React.PropTypes.string.isRequired,
-	methodType: React.PropTypes.string.isRequired,
+	root: React.PropTypes.string.isRequired,
 	url: React.PropTypes.string.isRequired
 };
 
 AppComponent1.defaultProps = {
 	name: 'AppComponent1', // change this
-	methodType: '.android',
-	url: '/Analysis/FilesForProcessing',
+	root: '.android',
+	url: '/Analysis/level0',
 };
 // var AppComponent1 = React.createClass({
 // 	propTypes: {

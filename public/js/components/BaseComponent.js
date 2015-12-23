@@ -48,7 +48,7 @@ BaseComponent.propTypes = {
 
 BaseComponent.defaultProps = {
 	name: 'BaseComponent', // change this
-	url: '/Analysis/MethodTypes'
+	url: '/Analysis/root'
 };
 
 module.exports = BaseComponent;

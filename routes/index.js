@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
   });
 });
 
-router.get('/Analysis/MethodTypes', function(req, res, next) {
+router.get('/Analysis/root', function(req, res, next) {
   fs.readdir(HOME, function(err, files) {
     if (err) {
       res.send([]);
@@ -32,8 +32,8 @@ router.get('/Analysis/MethodTypes', function(req, res, next) {
   });
 });
 
-router.get('/Analysis/FilesForProcessing', function(req, res, next) {
-  var selected = req.query.methodType;
+router.get('/Analysis/level0', function(req, res, next) {
+  var selected = req.query.root;
   fs.readdir(path.join(HOME, selected), function(err, files) {
     if (err) {
       res.send([]);
@@ -50,11 +50,11 @@ router.get('/Analysis/FilesForProcessing', function(req, res, next) {
   });
 });
 
-router.get('/Analysis/DemoList', function(req, res, next) {
-  var methodType = req.query.methodType;
-  var filename = req.query.filename;
+router.get('/Analysis/level1', function(req, res, next) {
+  var root = req.query.root;
+  var level0 = req.query.level0;
 
-  fs.readdir(path.join(HOME, methodType, filename), function(err, files) {
+  fs.readdir(path.join(HOME, root, level0), function(err, files) {
     if (err) {
       res.send([]);
     } else {

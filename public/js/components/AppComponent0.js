@@ -34,7 +34,7 @@ AppComponent0.propTypes = {
 
 AppComponent0.defaultProps = {
 	name: 'AppComponent0', // change this
-	url: '/Analysis/MethodTypes'
+	url: '/Analysis/root'
 };
 
 // var AppComponent0 = React.createClass({

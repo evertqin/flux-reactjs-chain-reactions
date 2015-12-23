@@ -4,12 +4,12 @@ var React = require('react');
 var StoresManager = require('../stores/StoresManager');
 var Actions = require('../actions/Actions');
 var UserControls = require('./UserControls.jsx');
-var AppComponent1 = require('./AppComponent1');
+var BaseComponent = require('./AppComponent1');
 var utils = require('../utils/AjaxUtils');
 
 var ajaxGet = utils.ajaxGet;
 
-class AppComponent2 extends AppComponent1 {
+class AppComponent2 extends BaseComponent {
 	constructor(props) {
 		super(props);
 		this.state = StoresManager.getStoreState(props.name);
@@ -20,20 +20,20 @@ class AppComponent2 extends AppComponent1 {
 
 	componentDidMount() {
 		//Here should attach event listener to upstream store
-		StoresManager.addListener('AppComponent1', this._onFilesChange);
+		StoresManager.addListener(BaseComponent.name, this._onFilesChange);
 
 	}
 
 	componentWillUnmount() {
-		StoresManager.removeListener('AppComponent1', this._onFilesChange);
+		StoresManager.removeListener(BaseComponent.name, this._onFilesChange);
 
 	}
 
 	_onFilesChange() {
-		if (StoresManager.getStoreState('AppComponent1').selected) {
+		if (StoresManager.getStoreState(BaseComponent.name).selected) {
 			ajaxGet.call(this, this.props.url, {
-					methodType: StoresManager.getStoreState('AppComponent0').selected,
-					filename: StoresManager.getStoreState('AppComponent1').selected
+					root: StoresManager.getStoreState('AppComponent0').selected,
+					level0: StoresManager.getStoreState(BaseComponent.name).selected
 				})
 				.then(this._onChange);
 		}
@@ -50,8 +50,8 @@ class AppComponent2 extends AppComponent1 {
 
 AppComponent2.propTypes = {
 	name: React.PropTypes.string.isRequired,
-	methodType: React.PropTypes.string.isRequired,
-	files: React.PropTypes.string.isRequired,
+	root: React.PropTypes.string.isRequired,
+	level0: React.PropTypes.string.isRequired,
 	url: React.PropTypes.string.isRequired
 };
 
@@ -59,7 +59,7 @@ AppComponent2.defaultProps = {
 	name: 'AppComponent2', // change this
 	methodType: '.android',
 	files: 'test',
-	url: '/Analysis/DemoList',
+	url: '/Analysis/level1',
 };
 
 module.exports = AppComponent2;
