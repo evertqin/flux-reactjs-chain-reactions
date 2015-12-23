@@ -4,43 +4,18 @@ var React = require('react');
 var StoresManager = require('../stores/StoresManager');
 var Actions = require('../actions/Actions');
 var UserControls = require('./UserControls.jsx');
+var BaseComponent = require('./BaseComponent');
 var utils = require('../utils/AjaxUtils');
 
 var ajaxGet = utils.ajaxGet;
 
-class AppComponent0 extends React.Component {
+class AppComponent0 extends BaseComponent {
 	constructor(props) {
 		super(props);
-		this.defaultProps();
 		this.state = StoresManager.getStoreState(props.name);
-		
-	}
-
-	static propTypes() {
-		return {
-			name: React.PropTypes.string.isRequired,
-			url: React.PropTypes.string.isRequired
-		};
-	}
-	static defaultProps() {
-		return {
-			name: 'AppComponent0', // change this
-			url: '/Analysis/MethodTypes'
-		};
-	}
-
-	componentDidMount() {
-		ajaxGet.call(this, this.props.url, {}).then(this._onChange);
-
-	}
-
-	componentWillUnmount() {
-		// AnalysisInputStores.removeChangeListener(this._onChange);
-	}
-
-	_onChange(value) {
-		Actions.excute(this.props.name, value);
-		this.setState(StoresManager.getStoreState(this.props.name));
+		// we need to manually bind this to custom methods
+		//https://github.com/goatslacker/alt/issues/283
+		this._onChange = this._onChange.bind(this);
 	}
 
 	render() {
@@ -52,6 +27,15 @@ class AppComponent0 extends React.Component {
 	}
 }
 
+AppComponent0.propTypes = {
+	name: React.PropTypes.string.isRequired,
+	url: React.PropTypes.string.isRequired
+};
+
+AppComponent0.defaultProps = {
+	name: 'AppComponent0', // change this
+	url: '/Analysis/MethodTypes'
+};
 
 // var AppComponent0 = React.createClass({
 // 	propTypes: {

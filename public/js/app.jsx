@@ -7,6 +7,7 @@ var ReactDOM = require('react-dom');
 var ViewConfig = require('./configs/ViewConfig');
 var AppComponent0 = ViewConfig[0].view;
 var AppComponent1 = ViewConfig[1].view;
+var AppComponent2 = ViewConfig[2].view;
 
 
 
@@ -15,6 +16,7 @@ var App = React.createClass({
 		return (<div>
 			<AppComponent0 />
 			<AppComponent1 />
+			<AppComponent2 />
 
 			</div>);
 	}

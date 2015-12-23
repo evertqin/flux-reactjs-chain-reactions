@@ -8,6 +8,9 @@ var ViewConfig = [{
 }, {
 	name: 'AppComponent1',
 	view: require('../components/AppComponent1'),
+},{
+	name: 'AppComponent2',
+	view: require('../components/AppComponent2'),
 } ];
 
 module.exports = ViewConfig;

@@ -5,6 +5,9 @@ var Config = [{
 }, {
 	name: 'AppComponent1',
 	class: require('../stores/Store'),
+},{
+	name: 'AppComponent2',
+	class: require('../stores/Store'),
 } ];
 
 module.exports = Config;
