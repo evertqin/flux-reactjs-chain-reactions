@@ -13,9 +13,6 @@ class AppComponent0 extends BaseComponent {
 	constructor(props) {
 		super(props);
 		this.state = StoresManager.getStoreState(props.name);
-		// we need to manually bind this to custom methods
-		//https://github.com/goatslacker/alt/issues/283
-		this._onChange = this._onChange.bind(this);
 	}
 
 	render() {

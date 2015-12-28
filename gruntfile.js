@@ -20,7 +20,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    "public/build/js/app-bundle.js": ["public/js/App.jsx"]
+                    "public/build/js/app-bundle.js": ["public/js/app.jsx"]
                 }
             }
 

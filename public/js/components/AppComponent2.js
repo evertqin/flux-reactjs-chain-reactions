@@ -55,8 +55,8 @@ AppComponent2.propTypes = {
 
 AppComponent2.defaultProps = {
 	name: 'AppComponent2', // change this
-	methodType: '.android',
-	files: 'test',
+	root: '.android',
+	level0: 'test',
 	url: '/Analysis/level1',
 };
 
