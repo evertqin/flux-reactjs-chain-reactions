@@ -3,3 +3,4 @@ obj
 *.usr
 packages
 node_modules
+.idea
